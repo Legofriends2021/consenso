@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consenso Bank - 创新离岸加密银行</title>
+    <style>
+        :root {
+            --deep-sea-blue: #05445E;
+            --cocoa-orange: #D4A017;
+            --light-chocolate: #D2B48C;
+            --cream: #FFFDD0;
+            --light-blue: #75D5FD;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--deep-sea-blue);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--deep-sea-blue);
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #076585;
+        }
+
+        .btn-primary {
+            background-color: var(--cocoa-orange);
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px 30px;
+        }
+
+        .btn-primary:hover {
+            background-color: #B8860B;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--deep-sea-blue);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        nav ul li a {
+            color: var(--deep-sea-blue);
+        }
+
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 0.5rem 0;
+        }
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+        nav ul li ul li {
+            margin: 0;
+            width: 200px;
+        }
+
+        nav ul li ul li a {
+            display: block;
+            padding: 0.5rem 1rem;
+        }
+
+        nav ul li ul li a:hover {
+            background-color: var(--light-chocolate);
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .actions a {
+            margin-left: 1rem;
+        }
+
+        .language-selector select {
+            padding: 5px;
+            margin-left: 1rem;
+            border: 1px solid var(--deep-sea-blue);
+            border-radius: 5px;
+            color: var(--deep-sea-blue);
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .feature {
+            flex: 1;
+            padding: 2rem;
+            margin: 0 1rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            color: var(--deep-sea-blue);
+        }
+
+        .feature ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .feature ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .why-choose-us {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: var(--light-chocolate);
+        }
+
+        .why-choose-us h2 {
+            margin-bottom: 2rem;
+            color: var(--deep-sea-blue);
+        }
+
+        .reasons {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .reason {
+            flex: 1;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 5px;
+            margin: 0 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .reason h4 {
+            color: var(--cocoa-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: var(--cream);
+        }
+
+        .cta h2 {
+            margin-bottom: 2rem;
+            color: var(--deep-sea-blue);
+        }
+
+        footer {
+            background-color: var(--deep-sea-blue);
+            color: #fff;
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--cocoa-orange);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #fff;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-chocolate);
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 4rem 0;
+            background-color: var(--deep-sea-blue);
+            color: #fff;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .service {
+            flex-basis: calc(33.33% - 2rem);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .service:hover {
+            transform: translateY(-5px);
+        }
+
+        .service h2 {
+            margin-bottom: 1rem;
+            color: var(--deep-sea-blue);
+        }
+
+        .service ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .service ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .about-section {
+            max-width: 800px;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            color: var(--deep-sea-blue);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-item h3 {
+            color: var(--cocoa-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-section {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .team-member {
+            flex-basis: calc(50% - 1rem);
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            color: var(--deep-sea-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .service-coverage {
+            padding: 4rem 2rem;
+            background-color: #fff;
+        }
+
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .coverage-item {
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .coverage-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .coverage-item h3 {
+            color: var(--deep-sea-blue);
+            margin-bottom: 1rem;
+        }
+
+        .coverage-item p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#home">Consenso Bank</a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#personal">个人</a>
+                    <ul>
+                        <li><a href="#wallet">加密货币钱包</a></li>
+                        <li><a href="#trading">加密货币交易</a></li>
+                        <li><a href="#debit-card">加密借记卡</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#business">企业</a>
+                    <ul>
+                        <li><a href="#business-account">企业加密账户</a></li>
+                        <li><a href="#cross-border">跨境支付解决方案</a></li>
+                        <li><a href="#portfolio">加密投资组合管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#developers">开发者</a>
+                    <ul>
+                        <li><a href="#api">API集成</a></li>
+                        <li><a href="#blockchain">区块链解决方案</a></li>
+                        <li><a href="#security">安全咨询</a></li>
+                    </ul>
+                </li>
+                <li><a href="#service-coverage">服务覆盖范围</a></li>
+            </ul>
+            <div class="actions">
+                <a href="#wallet" class="btn">链接钱包</a>
+                <a href="#buy" class="btn btn-primary">购买CBT</a>
+            </div>
+            <div class="language-selector">
+                <select>
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="pt">Português</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-slide active" style="background: linear-gradient(45deg, #05445E, #189AB4);">
+                <div>
+                    <h1>连接全球金融与非洲潜力的创新离岸加密银行</h1>
+                    <p>安全、高效、创新的金融服务，为您开启全球加密市场</p>
+                    <a href="#register" class="btn btn-primary">立即开户</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background: linear-gradient(45deg, #D4A017, #FFD700);">
+                <div>
+                    <h1>全球化的加密货币解决方案</h1>
+                    <p>为个人和企业提供全方位的加密货币服务</p>
+                    <a href="#services" class="btn btn-primary">了解更多</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background: linear-gradient(45deg, #75D5FD, #B76CFD);">
+                <div>
+                    <h1>引领金融科技创新</h1>
+                    <p>区块链技术赋能，打造下一代金融生态系统</p>
+                    <a href="#technology" class="btn btn-primary">探索技术</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>个人服务</h3>
+                <ul>
+                    <li>个人加密货币钱包</li>
+                    <li>加密货币交易</li>
+                    <li>加密借记卡</li>
+                </ul>
+                <a href="#personal" class="btn">了解更多</a>
+            </div>
+            <div class="feature">
+                <h3>企业服务</h3>
+                <ul>
+                    <li>企业加密账户</li>
+                    <li>跨境支付解决方案</li>
+                    <li>加密投资组合管理</li>
+                </ul>
+                <a href="#business" class="btn">了解更多</a>
+            </div>
+            <div class="feature">
+                <h3>开发者服务</h3>
+                <ul>
+                    <li>API集成</li>
+                    <li>区块链解决方案</li>
+                    <li>安全咨询</li>
+                </ul>
+                <a href="#developers" class="btn">了解更多</a>
+            </div>
+        </section>
+
+        <section class="why-choose-us">
+            <h2>为什么选择Consenso Bank?</h2>
+            <div class="reasons">
+                <div class="reason">
+                    <h4>安全可靠</h4>
+                    <p>采用先进的区块链技术和多重认证机制</p>
+                </div>
+                <div class="reason">
+                    <h4>高效便捷</h4>
+                    <p>24/7全天候服务，快速加密资产交易</p>
+                </div>
+                <div class="reason">
+                    <h4>合规透明</h4>
+                    <p>严格遵守国际金融法规，操作透明</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <h2>加入Consenso Bank，开启您的全球金融之旅</h2>
+            <a href="#register" class="btn btn-primary">立即开户</a>
+        </section>
+
+        <!-- 个人服务页面 -->
+        <section id="personal" class="page-header hidden">
+            <h1>个人服务</h1>
+            <p>为您提供全面的个人加密货币金融服务</p>
+        </section>
+
+        <section class="services hidden">
+            <div class="service">
+                <h2>个人加密货币钱包</h2>
+                <p>安全存储和管理多种加密货币，支持主流币种和代币。</p>
+                <ul>
+                    <li>多重签名保护</li>
+                    <li>冷热钱包结合</li>
+                    <li>实时市场行情</li>
+                </ul>
+                <a href="#" class="btn">立即开通</a>
+            </div>
+
+            <div class="service">
+                <h2>加密货币交易</h2>
+                <p>便捷的加密货币买卖和交换服务，支持多种交易对。</p>
+                <ul>
+                    <li>实时价格更新</li>
+                    <li>低手续费</li>
+                    <li>高流动性</li>
+                </ul>
+                <a href="#" class="btn">开始交易</a>
+            </div>
+
+            <div class="service">
+                <h2>加密借记卡</h2>
+                <p>使用加密货币在全球范围内消费，支持线上线下支付。</p>
+                <ul>
+                    <li>实时汇率转换</li>
+                    <li>全球ATM取现</li>
+                    <li>消费返现</li>
+                </ul>
+                <a href="#" class="btn">申请卡片</a>
+            </div>
+        </section>
+
+        <!-- 企业服务页面 -->
+        <section id="business" class="page-header hidden">
+            <h1>企业服务</h1>
+            <p>为您的企业提供全方位的加密货币金融解决方案</p>
+        </section>
+
+        <section class="services hidden">
+            <div class="service">
+                <h2>企业加密账户</h2>
+                <p>为企业提供专业的加密资产管理服务，满足各类业务需求。</p>
+                <ul>
+                    <li>多用户权限管理</li>
+                    <li>企业级安全保障</li>
+                    <li>详细的交易报告</li>
+                </ul>
+                <a href="#" class="btn">开设企业账户</a>
+            </div>
+
+            <div class="service">
+                <h2>跨境支付解决方案</h2>
+                <p>快速、低成本的国际转账和结算服务，支持多种加密货币。</p>
+                <ul>
+                    <li>实时汇率</li>
+                    <li>低手续费</li>
+                    <li>合规性保障</li>
+                </ul>
+                <a href="#" class="btn">了解更多</a>
+            </div>
+
+            <div class="service">
+                <h2>加密投资组合管理</h2>
+                <p>专业的加密资产投资策略和管理服务，助力企业资产增值。</p>
+                <ul>
+                    <li>定制化投资策略</li>
+                    <li>风险管理</li>
+                    <li>定期业绩报告</li>
+                </ul>
+                <a href="#" class="btn">咨询服务</a>
+            </div>
+        </section>
+
+        <!-- 开发者服务页面 -->
+        <section id="developers" class="page-header hidden">
+            <h1>开发者服务</h1>
+            <p>为开发者提供强大的工具和资源，助力创新金融应用开发</p>
+        </section>
+
+        <section class="services hidden">
+            <div class="service">
+                <h2>API集成</h2>
+                <p>轻松将加密支付功能集成到您的应用中，支持多种编程语言。</p>
+                <ul>
+                    <li>详细的API文档</li>
+                    <li>开发者支持</li>
+                    <li>沙盒测试环境</li>
+                </ul>
+                <a href="#" class="btn">查看API文档</a>
+            </div>
+
+            <div class="service">
+                <h2>区块链解决方案</h2>
+                <p>为您的项目提供定制的区块链开发服务，从概念到实现。</p>
+                <ul>
+                    <li>智能合约开发</li>
+                    <li>DApp开发支持</li>
+                    <li>区块链咨询服务</li>
+                </ul>
+                <a href="#" class="btn">咨询服务</a>
+            </div>
+
+            <div class="service">
+                <h2>安全咨询</h2>
+                <p>专业的加密安全审计和咨询服务，确保您的项目安全可靠。</p>
+                <ul>
+                    <li>代码审计</li>
+                    <li>安全漏洞评估</li>
+                    <li>合规性建议</li>
+                </ul>
+                <a href="#" class="btn">申请安全审计</a>
+            </div>
+        </section>
+
+        <!-- 服务覆盖范围页面 -->
+        <section id="service-coverage" class="page-header hidden">
+            <h1>服务覆盖范围</h1>
+            <p>Consenso Bank的全球金融服务网络</p>
+        </section>
+
+        <section class="service-coverage hidden">
+            <div class="coverage-grid">
+                <div class="coverage-item">
+                    <h3>非洲</h3>
+                    <p>以圣多美和普林西比为中心，辐射整个非洲大陆，为新兴市场提供创新金融解决方案。</p>
+                </div>
+                <div class="coverage-item">
+                    <h3>欧洲</h3>
+                    <p>与欧洲主要金融中心建立合作，为欧洲客户提供加密货币与传统金融的桥梁。</p>
+                </div>
+                <div class="coverage-item">
+                    <h3>亚太</h3>
+                    <p>覆盖亚太地区主要经济体，为快速增长的加密货币市场提供全方位服务。</p>
+                </div>
+                <div class="coverage-item">
+                    <h3>北美</h3>
+                    <p>与北美领先的金融科技公司合作，为成熟市场带来创新的加密货币解决方案。</p>
+                </div>
+                <div class="coverage-item">
+                    <h3>南美</h3>
+                    <p>针对南美市场的特殊需求，提供定制化的加密货币金融服务。</p>
+                </div>
+                <div class="coverage-item">
+                    <h3>全球在线服务</h3>
+                    <p>通过先进的在线平台，为全球用户提供24/7不间断的加密货币金融服务。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>关于我们</h4>
+                <ul>
+                    <li><a href="#about">公司简介</a></li>
+                    <li><a href="#team">管理团队</a></li>
+                    <li><a href="#careers">加入我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>产品</h4>
+                <ul>
+                    <li><a href="#digital-identity">数字身份</a></li>
+                    <li><a href="#debit-card">借记卡</a></li>
+                    <li><a href="#cbt-token">CBT代币</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>支持</h4>
+                <ul>
+                    <li><a href="#faq">常见问题</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                    <li><a href="#status">系统状态</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>法律</h4>
+                <ul>
+                    <li><a href="#terms">服务条款</a></li>
+                    <li><a href="#privacy">隐私政策</a></li>
+                    <li><a href="#compliance">合规声明</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2024 Consenso Bank. 保留所有权利。
+        </div>
+    </footer>
+
+    <script>
+        // 英雄轮播图功能
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        setInterval(nextSlide, 5000); // 每5秒切换一次轮播图
+
+        // 语言选择器功能
+        document.querySelector('.language-selector select').addEventListener('change', function() {
+            console.log('Language changed to: ' + this.value);
+        });
+
+        // 平滑滚动和页面切换功能
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // 隐藏所有页面
+                    document.querySelectorAll('main > section').forEach(section => {
+                        section.classList.add('hidden');
+                    });
+
+                    // 显示目标页面
+                    targetElement.classList.remove('hidden');
+                    if (targetElement.nextElementSibling && 
+                        (targetElement.nextElementSibling.classList.contains('services') || 
+                         targetElement.nextElementSibling.classList.contains('service-coverage'))) {
+                        targetElement.nextElementSibling.classList.remove('hidden');
+                    }
+
+                    // 如果点击的是logo或主页链接，显示所有非隐藏部分
+                    if (targetId === 'home' || this.classList.contains('logo')) {
+                        document.querySelectorAll('main > section:not(.hidden)').forEach(section => {
+                            section.classList.remove('hidden');
+                        });
+                    }
+
+                    // 滚动到页面顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 响应式导航菜单
+        const navToggle = document.createElement('button');
+        navToggle.classList.add('nav-toggle');
+        navToggle.innerHTML = '&#9776;';
+        document.querySelector('nav').prepend(navToggle);
+
+        navToggle.addEventListener('click', () => {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // 添加一些交互效果
+        document.querySelectorAll('.feature, .service, .value-item, .team-member, .coverage-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'scale(1.05)';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
